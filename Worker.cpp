@@ -13,9 +13,8 @@ int Worker::setAllProbability() {
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
 	if (links.size() == 2) //osobny przypadek
 			{
-		links[0].probability = (1 - links[1].probability)
-				* links[0].probability;
-		links[1].probability = (1 - links[0].probability);
+		links[0]setProbability(1 - links[1].getProbability())* links[0].getProbability());
+		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
 	}
 	float sum = 0;
@@ -23,12 +22,11 @@ int Worker::setAllProbability() {
 	for (int i : links) // mamy wektor obiektow Link
 	{
 		if (i != end) {
-			links[i].probability = (1 - links[end].probability)
-					* links[i].probability;
-			sum = sum + links[i].probability;
+			links[i].setProbability((1 - links[end].getProbability())* links[i].getProbability());
+			sum = sum + links[i].getProbability();
 		}
 	}
-	links[end].probability = 1 - sum;
+	links[end].setProbability() = 1 - sum;
 	return 1;
 }
 
@@ -105,7 +103,7 @@ int Worker::getId() {
 	return id;
 }
 nodeType Worker::getType() {
-	return Worker;
+	return nodeType::WORKER;
 }
 TimeOffset Worker::getprocessing_time() {
 	return processing_time;
@@ -148,8 +146,7 @@ int Worker::send(Reciever& destination) {
 	//nie spradzam czy mam co, a check niepotrzebny
 	if (currentProcessing.empty() == 1)
 		check = 0;
-	if (check == 0)
-		;
+	if (check == 0);
 	{
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;

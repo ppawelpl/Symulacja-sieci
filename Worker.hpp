@@ -1,7 +1,7 @@
 
 #ifndef WORKER_HPP_
 #define WORKER_HPP_
-
+#include <cstdlib>
 class Worker: public Sender, public Receiver {
 private:
 	double id;
@@ -12,6 +12,7 @@ private:
 	Queue queue; //pointer tylko on musi byæ inicjaizowany w konstruktorze
 	std::vector<Product> currentProcessing; //lepiej vector bo mo¿e mieæ puste pole
 	std::vector<Link> links;
+	std::map<int, Product> buffour;
 	int setAllProbability();
 	int chooseReciever(); //te funkcje musza byc prywatne?
 
@@ -34,7 +35,7 @@ public:
 	queueType getqueue_type();
 	void showLinks();
 	void addLink(Link newLink);
-	int send(Reciever& destination);
+	int send(int destId);
 	int recieve(Product recieved);
 
 };

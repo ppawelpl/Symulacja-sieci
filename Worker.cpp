@@ -6,13 +6,13 @@
 int Worker::setAllProbability() {
 	if (links.empty() == 1) {
 		std::cout << std::endl << "klasa nie posiada polaczen z odbiorcami"
-				<< std::endl;
+			<< std::endl;
 		return 0;
 	}
 	if (links.size() == 1)
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
 	if (links.size() == 2) //osobny przypadek
-			{
+	{
 		links[0]setProbability(1 - links[1].getProbability())* links[0].getProbability());
 		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
@@ -32,7 +32,6 @@ int Worker::setAllProbability() {
 
 int Worker::chooseReciever() {
 	sum = 0;
-	// #include <cstdlib>
 	if (links.size() == 1)
 		return links[0].getDestId();
 	int randomNumber;
@@ -52,16 +51,7 @@ int Worker::chooseReciever() {
 }
 
 Worker::Worker(double nId, TimeOffset nprocessing_time, queueType nqueue_type)
-{
-
-	id = nId;
-	processing_time = nprocessing_time; //czy mo¿na tak rzutowaæ typy
-	queue_type = nqueue_type;
-	currentProcessing = std::vector<Product> cP;
-	links = std::vector<Link> l;
-	//czy trzeba deklarowaæ wektory i tablice?
-
-}
+	: id(nId), processing_time(nprocessing_time), queue_type(nqueue_type) {}
 
 void Worker::process() {
 	if (processingNow == 0) {
@@ -80,13 +70,11 @@ void Worker::process() {
 	chosen_ID = chooseReciever;
 	if (chosen_ID == 0) {
 		std::cout << std::endl << "nie udalo sie wybrac odbiorcy, przerywam"
-				<< std::endl;
+			<< std::endl;
 		timeLeft = 1;
 		processingNow = 1;
 	}
-	std::unique_ptr < Reciever > chosen = std::make_unique < Reciever
-			> (chooseReciever()); //jak z samego destid zrobiæ recievera?
-	send(*chosen.get()); //mielismy referencje, czy mozemy podac wskaznik?
+	send(chosen_ID); //mielismy referencje, czy mozemy podac wskaznik?
 }
 
 void Worker::setId(double newID) {
@@ -127,21 +115,22 @@ void Worker::showLinks() {
 void Worker::addLink(Link newLink) {
 	int destinationId;
 	int otherId
-	destinationId = newLink.getdest_id;
+		destinationId = newLink.getdest_id;
 	for (int i : links) {
 		otherId = links[i].getdest_id;
 		if (destinationId == otherId) {
 			std::cout << std::endl << "ID zajete, nadpisuje polaczenie"
-					<< std::endl;
+				<< std::endl;
 			links[i] = newLink;
 			setAllPropability();
 			return;
-		} else;
+		}
+		else;
 	}
 	links.push_back(newLink);
 	setAllPropability();
 }
-int Worker::send(Reciever& destination) {
+int Worker::send(destId) {
 	int check;
 	//nie spradzam czy mam co, a check niepotrzebny
 	if (currentProcessing.empty() == 1)
@@ -151,7 +140,7 @@ int Worker::send(Reciever& destination) {
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;
 	}
-	destination.recieve(currentProcessing[0])
+	buffour.insert(std::pair<int, Product>(destID, currentProcessing[0]));
 	if (queue.empty() != 1)
 		currentProcessing[0] = queue.pull();
 	else
@@ -163,3 +152,4 @@ int Worker::recieve(Product recieved) {
 	queue.push(recieved);
 	return check;
 }
+

@@ -9,23 +9,22 @@ int Ramp::setAllPropability() {
 	}
 	if (links.size() == 1)
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
-	if (links.size == 2) //osobny przypadek
+	if (links.size() == 2) //osobny przypadek
 			{
-		links[0].probability = (1 - links[1].probability)
-				* links[0].probability;
-		links[1].probability = (1 - links[0].probability);
+		links[0]setProbability(1 - links[1].getProbability())* links[0].getProbability());
+		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
 	}
 	float sum = 0;
-	float end = links.size - 1;
-	for (int i : links) {
+	float end = links.size() - 1;
+	for (int i : links) // mamy wektor obiektow Link
+	{
 		if (i != end) {
-			links[i].probability = (1 - links[end].probability)
-					* links[i].probability;
-			sum = sum + links[i].probability;
+			links[i].setProbability((1 - links[end].getProbability())* links[i].getProbability());
+			sum = sum + links[i].getProbability();
 		}
 	}
-	links[end].probability = 1 - sum;
+	links[end].setProbability() = 1 - sum;
 	return 1;
 }
 int Ramp::chooseReciever() {
@@ -41,7 +40,7 @@ int Ramp::chooseReciever() {
 	//const auto& entry : probMap
 	for (int i : links) {
 		//entry.second
-		sum = sum + 100 * links[i].probability;
+		sum = sum + 100 * links[i].getProbability();
 		if (sum >= randomNumber)
 			return links[i].getDestId();
 	}

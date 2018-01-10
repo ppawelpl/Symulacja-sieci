@@ -6,7 +6,7 @@
 using Time = int;
 using TimeOffset = int;
 
-enum queueType
+enum EqueueType
 {
 	LIFO=0,
 	FIFO=1
@@ -14,12 +14,12 @@ enum queueType
 
 enum nodeType
 {
-	Ramp=0,
-	Worker=1,
-	Storage=2
+	RAMP=0,
+	WORKER=1,
+	STORAGE=2
 };
 
-class Receiver{   //tylko po to by bledy mi nie wyskakiwaly
+class Receiver{
 	double id;
 public:
 	double getId();
@@ -32,11 +32,12 @@ private:
 	nodeType dest_nodetype;
 	float probability;
 public:
-	float getProbaility();
-	double getDest_id();
+	float getProbability();
+	double getdest_id();
 	nodeType getDest_node_type();
 	void showLink();
-	void setReceiver(Receiver& Rec,float prob);////
+	void setReceiver(Receiver& Rec,float prob);
+	void setProbability(float prob);
 };
 
 

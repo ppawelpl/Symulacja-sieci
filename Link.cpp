@@ -1,18 +1,21 @@
 #include "Link.hpp"
 
 
-double Link::getDest_id(){
+double Link::getdest_id(){
 	return dest_id;
 }
 
-float Link::getProbaility(){
+float Link::getProbability(){
 	return probability;
 }
 
 nodeType Link::getDest_node_type(){
 	return dest_nodetype;
 }
+void Link::setProbability(float prob){
+	probability=prob;
 
+}
 void Link::showLink(){
 	std::cout<< "Id: ";
 	std::cout<< dest_id<<std::endl;

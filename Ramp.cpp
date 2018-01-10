@@ -4,13 +4,13 @@
 int Ramp::setAllPropability() {
 	if (links.empty() == 1) {
 		std::cout << std::endl << "klasa nie posiada polaczen z odbiorcami"
-				<< std::endl;
+			<< std::endl;
 		return 0;
 	}
 	if (links.size() == 1)
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
 	if (links.size() == 2) //osobny przypadek
-			{
+	{
 		links[0]setProbability(1 - links[1].getProbability())* links[0].getProbability());
 		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
@@ -27,10 +27,11 @@ int Ramp::setAllPropability() {
 	links[end].setProbability() = 1 - sum;
 	return 1;
 }
-int Ramp::chooseReciever() {
+double Ramp::chooseReciever() {
 	sum = 0;
-	// #include <cstdlib>
-	if (links.size == 1)
+	if (links.empty() == 1)
+		return 0;
+	if (links.size() == 1)
 		return links[0].getDestId();
 	int randomNumber;
 	float randomNumberFloat;
@@ -40,7 +41,7 @@ int Ramp::chooseReciever() {
 	//const auto& entry : probMap
 	for (int i : links) {
 		//entry.second
-		sum = sum + 100 * links[i].getProbability();
+		sum = sum + 100 * links[i].probability;
 		if (sum >= randomNumber)
 			return links[i].getDestId();
 	}
@@ -48,34 +49,28 @@ int Ramp::chooseReciever() {
 	return 0;
 }
 
-Ramp::Ramp(double nId, TimeOffset ndeliveryinterval) {
-	id = nId;
-	delivery_interval = ndelivery_interval;
-	currentProcessing = std::vector < Product > cP;
-	links = std::vector < Link > l;
-	//czy trzeba deklarowaæ wektory i tablice?
-}
+Ramp::Ramp(double nId, TimeOffset ndeliveryinterval)
+	: id(nId), delivery_interval(ndeliveryinterval) {}
 
 void Ramp::process() {
 	if (ready2recieve == 1) {
 		ready2recieve = 0;
 		timeLeft = delivery_interval;
 		currentProcessing.clear();
-	} else
+	}
+	else
 		timeLeft--;
 	if (timeLeft == 0)
 		ready2recieve = 1;
 	if (currentProcessing.empty() == 0) {
-		chosen_ID = chooseReciever();
+		double chosen_ID = chooseReciever();
 		if (chosen_ID == 0) {
 			std::cout << std::endl << "nie udalo sie wybrac odbiorcy, przerywam"
-					<< std::endl;
+				<< std::endl;
 			timeLeft = 1;
 			processingNow = 1;
 		}
-		std::unique_ptr < Reciever > chosen = std::make_unique < Reciever
-				> (chooseReciever()); //jak z samego destid zrobiæ recievera?
-		send(*chosen.get()); //mielismy referencje, czy mozemy podac wskaznik?
+		send(chosen_ID); //mielismy referencje, czy mozemy podac wskaznik?
 	}
 }
 void Ramp::setId(double newID) {
@@ -114,16 +109,17 @@ void Ramp::addLink(Link newLink) {
 		otherId = links[i].(getdest_id());
 		if (destinationId == otherId) {
 			std::cout << std::endl << "ID zajete, nadpisuje polaczenie"
-					<< std::endl;
+				<< std::endl;
 			links[i] = newLink;
 			setAllPropability();
 			return;
-		} else;
+		}
+		else;
 	}
 	links.push_back(newLink);
 	setAllPropability();
 }
-int Ramp::send(Receiver& destination) {
+int Ramp::send(double destID) {
 	int check;
 	//nie spradzam czy mam co, a check niepotrzebny
 	if (currentProcessing.empty() == 1)
@@ -134,11 +130,8 @@ int Ramp::send(Receiver& destination) {
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;
 	}
-	destination.receive(currentProcessing[0])
-	if (queue.empty() != 1)
-		currentProcessing[0] = queue.pull();
-	else
-		currentProcessing.clear();
+	buffour.insert(std::pair<int, Product>(destID, currentProcessing[0]));
+	currentProcessing.erase(currentProcessing.begin());
 	return 1;
 }
 int Ramp::recieve(Product recieved) {

@@ -30,8 +30,10 @@ int Worker::setAllProbability() {
 	return 1;
 }
 
-int Worker::chooseReciever() {
+double Worker::chooseReciever() {
 	sum = 0;
+	if (links.empty() == 1)
+		return 0;
 	if (links.size() == 1)
 		return links[0].getDestId();
 	int randomNumber;
@@ -67,7 +69,7 @@ void Worker::process() {
 	timeLeft--; //cojeslijakisczas
 	if (timeLeft == 0)
 		processingNow = 0;
-	chosen_ID = chooseReciever;
+	double chosen_ID = chooseReciever;
 	if (chosen_ID == 0) {
 		std::cout << std::endl << "nie udalo sie wybrac odbiorcy, przerywam"
 			<< std::endl;
@@ -130,7 +132,7 @@ void Worker::addLink(Link newLink) {
 	links.push_back(newLink);
 	setAllPropability();
 }
-int Worker::send(destId) {
+int Worker::send(double destId) {
 	int check;
 	//nie spradzam czy mam co, a check niepotrzebny
 	if (currentProcessing.empty() == 1)
@@ -140,7 +142,7 @@ int Worker::send(destId) {
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;
 	}
-	buffour.insert(std::pair<int, Product>(destID, currentProcessing[0]));
+	buffour.insert(std::pair<double, Product>(destID, currentProcessing[0]));
 	if (queue.empty() != 1)
 		currentProcessing[0] = queue.pull();
 	else

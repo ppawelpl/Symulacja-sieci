@@ -12,14 +12,14 @@ private:
 	bool ready2recieve;
 	std::vector<Product> currentProcessing;
 	std::vector<Link> links;
+	std::map<int, Product> buffour;
 	int setAllPropability();
 
-	int chooseReciever();
+	double chooseReciever();
 
 public:
 	Ramp() = delete;
 	Ramp(double nId, TimeOffset ndelivery_interval);
-
 	Ramp(const Ramp& W) = delete;
 	//operator= te¿ zabroniæ nie wiem jak
 	Ramp& Ramp::operator=(const Ramp &W) = delete;
@@ -33,7 +33,7 @@ public:
 	bool getStatus();
 	void showLinks();
 	void addLink(Link newLink);
-	int send(Receiver& destination);
+	int send(double destID);
 	int recieve(Product recieved);
 
 };

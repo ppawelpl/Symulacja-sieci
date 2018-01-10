@@ -14,7 +14,7 @@ private:
 	std::vector<Link> links;
 	std::map<int, Product> buffour;
 	int setAllProbability();
-	int chooseReciever(); //te funkcje musza byc prywatne?
+	double chooseReciever(); //te funkcje musza byc prywatne?
 
 public:
 	Worker() = delete;
@@ -35,7 +35,7 @@ public:
 	queueType getqueue_type();
 	void showLinks();
 	void addLink(Link newLink);
-	int send(int destId);
+	int send(double destId);
 	int recieve(Product recieved);
 
 };

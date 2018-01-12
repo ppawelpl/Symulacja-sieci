@@ -13,7 +13,7 @@ int Worker::setAllProbability() {
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
 	if (links.size() == 2) //osobny przypadek
 	{
-		links[0]setProbability(1 - links[1].getProbability())* links[0].getProbability());
+		links[0]setProbability(1 - links[1].getProbability()* links[0].getProbability());
 		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
 	}
@@ -22,7 +22,7 @@ int Worker::setAllProbability() {
 	for (int i : links) // mamy wektor obiektow Link
 	{
 		if (i != end) {
-			links[i].setProbability((1 - links[end].getProbability())* links[i].getProbability());
+			links[i].setProbability((1 - links[end].getProbability()* links[i].getProbability());
 			sum = sum + links[i].getProbability();
 		}
 	}
@@ -44,7 +44,7 @@ double Worker::chooseReciever() {
 	//const auto& entry : probMap
 	for (int i : links) {
 		//entry.second
-		sum = sum + 100 * links[i].probability;
+		sum = sum + 100 * links[i].getProbability;
 		if (sum >= randomNumber)
 			return links[i].getDestId();
 	}

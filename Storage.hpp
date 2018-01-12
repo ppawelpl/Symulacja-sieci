@@ -4,7 +4,7 @@
 #include "Link.hpp"
 #include <vector>
 
-class Storage: public Receiver {
+class Storage : public Reciever {
 private:
 	double id;
 	std::vector<Product> store;

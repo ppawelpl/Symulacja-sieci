@@ -2,8 +2,6 @@
 
 Storage::Storage(double nId) {
 	id = nId;
-
-	//czy trzeba deklarowaæ wektory i tablice?
 }
 void Storage::setId(double newID) {
 	id = newID;

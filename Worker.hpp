@@ -1,3 +1,4 @@
+
 #ifndef WORKER_HPP_
 #define WORKER_HPP_
 #include <cstdlib>
@@ -10,7 +11,7 @@
 #include<map>
 #include <ctime>
 
-class Worker: public Sender, public Receiver {
+class Worker: public Sender, public Reciever {
 private:
 	double id;
 	bool processingNow;
@@ -22,7 +23,7 @@ private:
 	std::vector<Link> links;
 	std::map<int, Product> buffour;
 	int setAllProbability();
-	double chooseReciever(); //te funkcje musza byc prywatne?
+	double chooseReciever();
 
 public:
 	Worker() = delete;

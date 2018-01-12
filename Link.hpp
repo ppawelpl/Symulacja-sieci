@@ -1,7 +1,9 @@
+
+
 #ifndef LINK_H
 #define LINK_H
 #include<iostream>
-#include"Reciever.hpp"
+#include "Reciever.hpp"
 
 using Time = int;
 using TimeOffset = int;
@@ -12,18 +14,6 @@ enum queueType
 	FIFO=1
 };
 
-enum nodeType
-{
-	RAMP=0,
-	WORKER=1,
-	STORAGE=2
-};
-
-class Receiver{
-	double id;
-public:
-	double getId();
-};
 
 class Link
 {

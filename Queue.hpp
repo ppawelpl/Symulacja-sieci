@@ -4,7 +4,7 @@
 #include<deque>
 #include "Product.hpp"
 #include "Link.hpp"
-#include<deque>
+
 class Queue
     {
     protected:

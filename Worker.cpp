@@ -131,7 +131,7 @@ int Worker::send(double destId) {
 	//nie spradzam czy mam co, a check niepotrzebny
 	if (currentProcessing.empty() == 1)
 		check = 0;
-	if (check == 0);
+	if (check == 0)
 	{
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;

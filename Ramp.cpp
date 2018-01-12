@@ -80,7 +80,7 @@ int Ramp::getId() {
 	return id;
 }
 nodeType Ramp::getType() {
-	return RAMP;
+	return nodeType::RAMP;
 }
 TimeOffset Ramp::getdelivery_interval() {
 	return delivery_interval;
@@ -122,7 +122,7 @@ int Ramp::send(double destID) {
 	if (currentProcessing.empty() == 1)
 		check = 0;
 	if (check == 0)
-		;
+
 	{
 		std::cout << std::endl << "Blad, nie wys³ano" << std::endl;
 		return 0;

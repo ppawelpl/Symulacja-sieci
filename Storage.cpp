@@ -3,15 +3,14 @@
 Storage::Storage(double nId) {
 	id = nId;
 
-	store = std::vector < Product > s;
 	//czy trzeba deklarowaæ wektory i tablice?
 }
 void Storage::setId(double newID) {
 	id = newID;
 }
 void Storage::showStore() {
-	for (int i : store) {
-		store[i].show();
+	for (Product i : store) {
+		i.show();
 	}
 }
 

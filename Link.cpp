@@ -27,8 +27,7 @@ void Link::showLink(){
 	std::cout<< dest_nodetype <<std::endl;
 
 }
-//////////////////////////////////////////////////////////////////
-void Link::setReceiver(Receiver& Rec,float prob){
-		this->dest_id=Rec.getId();
+void Link::setReceiver(Reciever& Rec,float prob){
+		this->dest_id=Rec.getid();
 
 }

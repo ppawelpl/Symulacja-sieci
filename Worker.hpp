@@ -1,7 +1,15 @@
-
 #ifndef WORKER_HPP_
 #define WORKER_HPP_
 #include <cstdlib>
+#include "Link.hpp"
+#include "Product.hpp"
+#include "Reciever.hpp"
+#include "Sender.hpp"
+#include "Queue.hpp"
+#include<vector>
+#include<map>
+#include <ctime>
+
 class Worker: public Sender, public Receiver {
 private:
 	double id;
@@ -9,7 +17,7 @@ private:
 	TimeOffset processing_time;
 	Time timeLeft;
 	queueType queue_type;
-	Queue queue; //pointer tylko on musi byæ inicjaizowany w konstruktorze
+    Queue *_queue; //pointer tylko on musi byæ inicjaizowany w konstruktorze
 	std::vector<Product> currentProcessing; //lepiej vector bo mo¿e mieæ puste pole
 	std::vector<Link> links;
 	std::map<int, Product> buffour;
@@ -22,7 +30,6 @@ public:
 
 	Worker(const Worker& W) = delete;
 	//operator= te¿ zabroniæ nie wiem jak
-	Worker& Worker::operator=(const Worker &W) = delete;
 	void process();
 	void setId(double newID);
 	void setprocessing_time(TimeOffset givenTime);

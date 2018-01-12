@@ -1,5 +1,5 @@
 #include "Ramp.hpp"
-#include "Link.hpp"
+
 
 int Ramp::setAllPropability() {
 	if (links.empty() == 1) {
@@ -11,39 +11,36 @@ int Ramp::setAllPropability() {
 		return 1; //prawdopodobieñstwo 1 jest zachowywane, ale nale¿y pamiêtaæ ¿eby sprawdzaæ przy choosereciever
 	if (links.size() == 2) //osobny przypadek
 	{
-		links[0]setProbability(1 - links[1].getProbability()* links[0].getProbability());
+		links[0].setProbability(1 - links[1].getProbability()* links[0].getProbability());
 		links[1].setProbability(1 - links[0].getProbability());
 		return 1;
 	}
 	float sum = 0;
-	float end = links.size() - 1;
-	for (int i : links) // mamy wektor obiektow Link
+	for (Link i : links) // mamy wektor obiektow Link
 	{
-		if (i != end) {
-			links[i].setProbability((1 - links[end].getProbability()* links[i].getProbability());
-			sum = sum + links[i].getProbability();
+		if (i.getdest_id() != links.back().getdest_id()) {
+			i.setProbability(1 - links.back().getProbability()* i.getProbability());
+			sum = sum + i.getProbability();
 		}
 	}
-	links[end].setProbability() = 1 - sum;
+	links.back().setProbability(1 - sum);
 	return 1;
 }
 double Ramp::chooseReciever() {
-	sum = 0;
+	auto sum = 0;
 	if (links.empty() == 1)
 		return 0;
 	if (links.size() == 1)
-		return links[0].getDestId();
+		return links[0].getdest_id();
 	int randomNumber;
-	float randomNumberFloat;
 	srand(time(0));
 	randomNumber = rand() % 100 + 1;
-	randomNumberFloat = randomNumber;
 	//const auto& entry : probMap
-	for (int i : links) {
+	for (Link i : links) {
 		//entry.second
-		sum = sum + 100 * links[i].getProbability;
+		sum = sum + 100 * i.getProbability();
 		if (sum >= randomNumber)
-			return links[i].getDestId();
+			return i.getdest_id();
 	}
 	std::cout << std::endl << "Nieznany blad" << std::endl;
 	return 0;
@@ -83,7 +80,7 @@ int Ramp::getId() {
 	return id;
 }
 nodeType Ramp::getType() {
-	return Ramp;
+	return RAMP;
 }
 TimeOffset Ramp::getdelivery_interval() {
 	return delivery_interval;
@@ -98,19 +95,19 @@ bool Ramp::getStatus() {
 		return 1;
 }
 void Ramp::showLinks() {
-	for (int i : links)
-		links[i].showLink;
+	for (Link i : links)
+		i.showLink();
 }
 void Ramp::addLink(Link newLink) {
 	int destinationId;
 	int otherId;
-	destinationId = newLink.getdest_id;
-	for (int i : links) {
-		otherId = links[i].(getdest_id());
+	destinationId = newLink.getdest_id();
+	for (Link i : links) {
+		otherId = i.getdest_id();
 		if (destinationId == otherId) {
 			std::cout << std::endl << "ID zajete, nadpisuje polaczenie"
 				<< std::endl;
-			links[i] = newLink;
+			i = newLink;
 			setAllPropability();
 			return;
 		}

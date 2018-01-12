@@ -1,12 +1,12 @@
 #ifndef LINK_H
 #define LINK_H
 #include<iostream>
-
+#include"Reciever.hpp"
 
 using Time = int;
 using TimeOffset = int;
 
-enum EqueueType
+enum queueType
 {
 	LIFO=0,
 	FIFO=1
@@ -36,7 +36,7 @@ public:
 	double getdest_id();
 	nodeType getDest_node_type();
 	void showLink();
-	void setReceiver(Receiver& Rec,float prob);
+	void setReceiver(Reciever& Rec,float prob);
 	void setProbability(float prob);
 };
 

@@ -1,5 +1,5 @@
 #include "Product.hpp"
-
+#include <iostream>
 double Product::getId(){
 	return id;
 }

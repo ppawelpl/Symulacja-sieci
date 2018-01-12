@@ -1,10 +1,10 @@
-
 #ifndef STORAGE_HPP_
 #define STORAGE_HPP_
+#include "Product.hpp"
+#include "Link.hpp"
+#include <vector>
 
-
-class Storage : public Receiver
-{
+class Storage: public Receiver {
 private:
 	double id;
 	std::vector<Product> store;

@@ -2,11 +2,18 @@
 #define RAMP_HPP_
 #include "Link.hpp"
 #include "Product.hpp"
+#include "Reciever.hpp"
+#include "Sender.hpp"
+#include<vector>
+#include<map>
+#include<cstdlib>
+#include <ctime>
 
 class Ramp: public Sender, public Reciever //musi te¿ otrzymywaæ
 {
 private:
 	double id;
+	bool processingNow;
 	TimeOffset delivery_interval;
 	Time timeLeft;
 	bool ready2recieve;
@@ -22,7 +29,7 @@ public:
 	Ramp(double nId, TimeOffset ndelivery_interval);
 	Ramp(const Ramp& W) = delete;
 	//operator= te¿ zabroniæ nie wiem jak
-	Ramp& Ramp::operator=(const Ramp &W) = delete;
+	Ramp& operator=(const Ramp &W) = delete;
 	void process();
 	void setId(double newID);
 	void setdelivery_interval(TimeOffset givenTime);
